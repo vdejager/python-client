@@ -46,8 +46,8 @@ def _key_sorting(item):
 
 # NOTE: 'type', 'description' and 'example' are now deprecated,
 #       in favor of 'schema'.
-Field = namedtuple('Field', ['name', 'required', 'location', 'schema', 'description', 'type', 'example'])
-Field.__new__.__defaults__ = (False, '', None, None, None, None)
+Field = namedtuple('Field', ['name', 'required', 'location', 'schema', 'method', 'description', 'type', 'example'])
+Field.__new__.__defaults__ = (False, '', None, 'GET', None, None, None)
 
 
 # The Core API primitives:
@@ -215,7 +215,7 @@ class Link(itypes.Object):
         self._title = '' if (title is None) else title
         self._description = '' if (description is None) else description
         self._fields = () if (fields is None) else tuple([
-            item if isinstance(item, Field) else Field(item, required=False, location='')
+            item if isinstance(item, Field) else Field(item, required=False, location='', method='')
             for item in fields
         ])
 
